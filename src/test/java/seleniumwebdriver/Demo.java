@@ -30,6 +30,7 @@ public class Demo {
 	softAssert.assertEquals(actualTitle, "Guru99 Bank Manager HomePage", "Title is not matched");
 	softAssert.assertAll();
 		
+		int a = 1;
 		
 		
 		
