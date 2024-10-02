@@ -1,10 +1,12 @@
 package seleniumwebdriver;
 
+import java.awt.RenderingHints.Key;
 import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,32 +24,28 @@ public class EndToEndTestFlow {
 		ChromeDriver driver = new ChromeDriver();
 		// driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.manage().window().maximize();
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		driver.get("http://dev:Cgb3u2%e6h$jrG@switchbladeturbo.studioxphl.com/");
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Products")));
-		driver.findElement(By.linkText("Products")).click();
-
 		// Create JavascriptExecutor instance
 		JavascriptExecutor js = (JavascriptExecutor) driver;
+		// driver.manage().deleteAllCookies();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		driver.get("http://dev:Cgb3u2%e6h$jrG@switchbladeturbo.studioxphl.com/");
+		// wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Products")));
+		driver.navigate().to("https://switchbladeturbo.studioxphl.com/productsearch");
+		//driver.findElement(By.linkText("Products")).click();
 
-		// Scroll down by 1000 pixels (adjust the value for different positions)
+		// Scroll down by 500 pixels (adjust the value for different positions)
 		js.executeScript("window.scrollBy(0, 500)");
 
-
-
-		wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".categoryBoxes"))));
+		// wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".categoryBoxes"))));
 
 		List<WebElement> products = driver.findElements(By.cssSelector(".ad-industry-item"));
 
 		WebElement prod =
 
 				products.stream()
-						.filter(product -> product
-								.findElement(By.cssSelector(".ad-industry-content"))
-								.getText().equals("Switchblade Turbo for Caterpillar ACERT 6NZ & C15 & C16 & C18"))
+						.filter(product -> product.findElement(By.cssSelector(".ad-industry-content")).getText()
+								.equals("Switchblade Turbo for Caterpillar ACERT 6NZ & C15 & C16 & C18"))
 						.findAny().orElse(null);
-		
-		js.executeScript("window.scrollBy(0, 200)");
 
 		prod.click();
 
@@ -66,45 +64,71 @@ public class EndToEndTestFlow {
 //		
 //
 //		
-//		
-		List<WebElement> drpOptions1 = driver.findElements(By.cssSelector(".btn-group"));
+		js.executeScript("window.scrollBy(0, 200)");
 
-		WebElement drpopt1 = drpOptions1.stream()
-				.filter(drp -> drp.findElement(By.cssSelector("span")).getText().equals("500 - 850 hp")).findAny()
-				.orElse(null);
-		drpopt1.click();
-//		
-//		List<WebElement> drpOptions2 = driver.findElements(By.xpath(
-//				"//div[@class='btn-group bootstrap-select ad-select producttypevar open']//div[@role='combobox']"));
-//
-//		
-//		WebElement drpopt2 = drpOptions2.stream()
-//				.filter(drp -> drp.findElement(By.cssSelector("span")).getText().equals("Only Include Exhaust Manifold")).findAny()
-//				.orElse(null);
-//		drpopt2.click();
-//		
-//		 js.executeScript("window.scrollBy(0, 200)");
-//
-//	
-//
-//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("ad-price")));
-//
-//		driver.findElement(By.xpath("//input[@name='addcart']")).click();
-//
-//		driver.findElement(By.xpath("//a[normalize-space()='View Cart']")).click();
-//
-//		driver.findElement(By.xpath("//button[normalize-space()='Checkout']")).click();
-//
-////		js.executeScript("window.scrollBy(0, 300)");
-//
-//		driver.findElement(By.xpath("//input[@name='emailid']")).sendKeys("Automateduser@mailinator.com");
-//		wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//input[@name='phoneno']"))));
-//		driver.findElement(By.xpath("//input[@name='phoneno']")).sendKeys("9898989898");
-//		driver.findElement(By.xpath("//input[@name='accountflag']")).click();
-//		
-//	//	js.executeScript("window.scrollBy(0, 200)");
+		driver.findElement(By.xpath("//button[@title='Select Current Engine Horsepower Rating']")).click();
+
+		driver.findElement(By.xpath("//span[normalize-space()='500 - 850 hp']")).click();
+
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
+		driver.findElement(By.xpath("//button[@title='Select Required Components']")).click();
+
+		driver.findElement(By.xpath("//span[@class='text'][normalize-space()='Only Include Exhaust Manifold']"))
+				.click();
+
+		js.executeScript("window.scrollBy(0, 200)");
+
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("ad-price")));
+		driver.findElement(By.xpath("//input[@name='addcart']")).click();
+
+		driver.findElement(By.xpath("//a[normalize-space()='View Cart']")).click();
+
+		driver.findElement(By.xpath("//button[normalize-space()='Checkout']")).click();
+
+		js.executeScript("window.scrollBy(0, 300)");
+		driver.findElement(By.xpath("//input[@name='emailid']")).sendKeys("Automateduser@mailinator.com");
+		wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//input[@name='phoneno']"))));
+		driver.findElement(By.xpath("//input[@name='phoneno']")).sendKeys("9898989898");
+		driver.findElement(By.xpath("//input[@name='accountflag']")).click();
+
+		// js.executeScript("window.scrollBy(0, 200)");
+
+		driver.findElement(By.id("firstname")).sendKeys("NewUser");
+		driver.findElement(By.id("middlename")).sendKeys("A");
+		driver.findElement(By.id("lastname")).sendKeys("Roy");
+
+		js.executeScript("window.scrollBy(0,200)");
+
+		driver.findElement(By.xpath("//input[@id='streetaddress1']")).sendKeys("Demo street 123");
+		driver.findElement(By.xpath("//input[@id='streetaddress2']")).sendKeys("Demo address 2");
+		driver.findElement(By.xpath("//input[@id='city']")).sendKeys("Salt lake city");
+
+		
+	
 		
 		
+		
+//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn dropdown-toggle btn-default")));
+		WebElement dropdownContainer = driver.findElement(By.xpath("//button[@data-id='state']"));
+//
+		dropdownContainer.click();
+		dropdownContainer.sendKeys("I");
+//		
+//		
+//
+////		 js.executeScript("arguments[0].scrollTop = arguments[0].scrollTop + 500;", dropdownContainer);
+////		
+		wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//div[@role='combobox'])[1]"))));
+		driver.findElement(By.xpath("(//span[@class='text'][normalize-space()='Idaho'])[1]")).click();
+//
+//dropdownContainer.click();
+
+		driver.findElement(By.xpath("//input[@id='postalcode']")).sendKeys("84111", Keys.TAB);
+
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".shipping_options_row")));
+
+
+
 	}
 
 }
