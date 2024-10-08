@@ -31,7 +31,7 @@ public class EndToEndTestFlow {
 		driver.get("http://dev:Cgb3u2%e6h$jrG@switchbladeturbo.studioxphl.com/");
 		// wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Products")));
 		driver.navigate().to("https://switchbladeturbo.studioxphl.com/productsearch");
-		//driver.findElement(By.linkText("Products")).click();
+		// driver.findElement(By.linkText("Products")).click();
 
 		// Scroll down by 500 pixels (adjust the value for different positions)
 		js.executeScript("window.scrollBy(0, 500)");
@@ -86,7 +86,7 @@ public class EndToEndTestFlow {
 		driver.findElement(By.xpath("//button[normalize-space()='Checkout']")).click();
 
 		js.executeScript("window.scrollBy(0, 300)");
-		driver.findElement(By.xpath("//input[@name='emailid']")).sendKeys("Automateduser@mailinator.com");
+		driver.findElement(By.xpath("//input[@name='emailid']")).sendKeys("Automateduser123@mailinator.com");
 		wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//input[@name='phoneno']"))));
 		driver.findElement(By.xpath("//input[@name='phoneno']")).sendKeys("9898989898");
 		driver.findElement(By.xpath("//input[@name='accountflag']")).click();
@@ -103,11 +103,6 @@ public class EndToEndTestFlow {
 		driver.findElement(By.xpath("//input[@id='streetaddress2']")).sendKeys("Demo address 2");
 		driver.findElement(By.xpath("//input[@id='city']")).sendKeys("Salt lake city");
 
-		
-	
-		
-		
-		
 //		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn dropdown-toggle btn-default")));
 		WebElement dropdownContainer = driver.findElement(By.xpath("//button[@data-id='state']"));
 //
@@ -127,7 +122,41 @@ public class EndToEndTestFlow {
 
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".shipping_options_row")));
 
+		driver.findElement(By.id("cardno")).sendKeys("4111111111111111");
+		driver.findElement(By.id("cardname")).sendKeys("Jerry Tester");
+		driver.findElement(By.id("expiredate")).sendKeys("112225");
+		driver.findElement(By.id("cvv")).sendKeys("144");
+		driver.findElement(By.xpath("//input[@id='billingstreetaddress1']")).sendKeys("Demo");
+		driver.findElement(By.xpath("//input[@id='billingcity']")).sendKeys("Salt lake city");
+		
+		WebElement dropdownContainer1 = driver.findElement(By.xpath("//button[@data-id='billingstate']"));
+		//
+				dropdownContainer1.click();
+				dropdownContainer1.sendKeys("I");
+				driver.findElement(By.xpath("(//span[@class='text'][normalize-space()='Idaho'])[2]")).click();
+		
+		
+		//wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//div[@role='combobox'])[1]"))));
+		//driver.findElement(By.xpath("(//span[@class='text'][normalize-space()='Idaho'])[1]")).click();
+		driver.findElement(By.xpath("//input[@id='billingpostalcode']")).sendKeys("84111");
+		
+		
+		//driver.findElement(By.id("samebilling")).click();
+	//	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+	//	js.executeScript("window.scrollBy(0,300)");
 
+
+	//	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='acceptterms']")));
+	//	driver.findElement(By.xpath("//input[@id='acceptterms']")).click();
+
+		
+		WebElement checkbox = driver.findElement(By.id("acceptterms"));
+		//JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click();", checkbox);
+		
+//	wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".placeorderbtn")));
+
+		driver.findElement(By.cssSelector(".placeorderbtn")).click();
 
 	}
 
